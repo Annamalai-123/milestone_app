@@ -1,15 +1,27 @@
-//npm run server check package.json
-const express = require('express')
-const dotenv = require('dotenv').config()
-const {errorHandler}= require('./middleware/errorMiddleware')
-const port = process.env.PORT || 5000
+require('dotenv').config();  // Load environment variables at the very top
+const express = require('express');
+const colors = require('colors');
+const { errorHandler } = require('./middleware/errorMiddleware');
+const connectDB = require('./config/db');
+const port = process.env.PORT || 5000;
 
-const app = express()
+// Connect to MongoDB
+connectDB();
 
-app.use(express.json())  // use this middleware for using console.log req.body in setgoals with
-app.use(express.urlencoded({extended:false})) // postman checking text ,1st goal
+// Initialize Express app
+const app = express();
 
-app.use('/api/goals', require('./routes/goalRoutes'))
-app.use(errorHandler)
+// Middleware for parsing JSON and urlencoded data
+app.use(express.json());  // use this middleware for using console.log req.body in setgoals with
+app.use(express.urlencoded({ extended: false })); //postman checking text,1st goal
 
-app.listen(port,()=> console.log(`server strarted on port ${port}`) )
+// Routes
+app.use('/api/goals', require('./routes/goalRoutes'));
+
+// Error handling middleware
+app.use(errorHandler);
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`.cyan.underline);
+});
