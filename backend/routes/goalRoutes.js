@@ -14,4 +14,4 @@ router.put('/:id', updateGoals)
 router.delete('/:id', deleteGoals)
 
 
-module.exports = router
+module.exports = router 
