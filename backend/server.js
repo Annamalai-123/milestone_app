@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: false })); //postman checking text,1st go
 
 // Routes
 app.use('/api/goals', require('./routes/goalRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
 
 // Error handling middleware
 app.use(errorHandler);
