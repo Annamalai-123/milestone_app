@@ -5,18 +5,18 @@ function Header() {
   return (
     <header className='header'>
         <div className="logo">
-            <link to='/'>GoalSetter</link>
+            <Link to='/'>GoalSetter</Link>
         </div>
         <ul>
             <li>
-                <link to ='/login'>
+                <Link to ='/login'>
                 <FaSignInAlt/> Login 
-                  </link>
+                  </Link>
             </li>
             <li>
-                <link to ='/register'>
+                <Link to ='/register'>
                 <FaUser/> Register 
-                </link>
+                </Link>
             </li>
            
         </ul>
