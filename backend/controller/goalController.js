@@ -78,17 +78,20 @@ const updateGoals = asyncHandler(async(req,res)=>{
 
 const deleteGoals = asyncHandler(async(req,res)=>{  
     const goals =await Goal.findById(req.params.id)
-
+    if(!goals){
+        res.status(400)
+        throw new Error ('Goal not found')
+     }
 
     if(!req.user){
         res.status(401)
         throw new Error('user not found ')
     }
-    if (goal.user.toString() !== req.user.id){
+    if (goals.user.toString() !== req.user.id){
         res.status(401)
         throw new Error('user not Authorised ')
     }
-   await goal.remove()
+    await goals.deleteOne()
     res.status(200).json ({ id: req.params.id })
 })
 

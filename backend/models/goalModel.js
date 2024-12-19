@@ -12,7 +12,7 @@ const goalSchema = mongoose.Schema(
         required:[true,'please add a text']
     }
 },{
-    Timestamp:true,
+    timestamps:true,
 } 
 )
 
