@@ -1,4 +1,4 @@
-const path = require('path ')
+const path = require('path')
 const dotenv = require('dotenv').config();  // Load environment variables at the very top
 const express = require('express');
 const colors = require('colors');
