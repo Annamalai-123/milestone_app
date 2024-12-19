@@ -17,7 +17,7 @@ function Header() {
   return (
     <header className='header'>
         <div className="logo">
-            <Link to='/'>GoalSetter</Link>
+            <Link to='/' >GoalSetter</Link>
         </div>
         <ul>  
           {user ? ( 
@@ -33,7 +33,7 @@ function Header() {
                 <FaSignInAlt/> Login 
                   </Link>
             </li>
-            <li>
+            <li className='reg'>
                 <Link to ='/register'>
                 <FaUser/> Register 
                 </Link>
