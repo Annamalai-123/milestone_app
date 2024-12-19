@@ -1,4 +1,5 @@
-require('dotenv').config();  // Load environment variables at the very top
+const path = require('path ')
+const dotenv = require('dotenv').config();  // Load environment variables at the very top
 const express = require('express');
 const colors = require('colors');
 const { errorHandler } = require('./middleware/errorMiddleware');
@@ -18,6 +19,13 @@ app.use(express.urlencoded({ extended: false })); //postman checking text,1st go
 // Routes
 app.use('/api/goals', require('./routes/goalRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
+
+//Serve frontend 
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static(path.join(__dirname,'../frontend/build')))
+
+  app.get('*',(req,res) =>res.sendFile(path.resolve(__dirname,'../','frontend','build','index.html')))
+}
 
 // Error handling middleware
 app.use(errorHandler);

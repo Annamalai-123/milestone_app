@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux"
 import {createGoal} from '../features/goals/goalSlice'
 
 function GoalForm() {
-
     const [text,setText] = useState('')
+
 //dispatcgh
     const dispatch = useDispatch()
 
@@ -13,9 +13,7 @@ function GoalForm() {
 
         dispatch(createGoal({text}))
         setText('')
-
     }
-
 
   return (
     <section className="form">
@@ -23,8 +21,10 @@ function GoalForm() {
             <div className="form-group">
                 <label htmlFor="text">Goal</label>
                 <input type="text"  name='text' id='text' 
-                value={text} onChange={(e) => setText(e.target.value)}/>
+                value={text} 
+                onChange={(e) => setText(e.target.value)}/>
             </div>
+            
             <div className="form-group">
                 <button className="btn btn-block" type="submit">
                     Add Goal
@@ -35,5 +35,4 @@ function GoalForm() {
    
   )
 }
-
 export default GoalForm
