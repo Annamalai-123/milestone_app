@@ -42,17 +42,17 @@ const updateGoals = asyncHandler(async(req,res)=>{
         throw new Error('goal not found')
     }
 
-    //jwt added code
-    const user = await  User.findById(req.user.id)
+    //jwt added code removed
+   
     //check user
-    if(!user){
+    if(!req.user){
         res.status(401)
         throw new Error('User not found')
     }
     
     //make sure the logged in user matches the goal user
-
-    if(goal.user.toString() !== user.id){
+    //added user by req
+    if(goal.user.toString() !== req.user.id){
         res.status(401)
         throw new Error('User not authorised')
     }
@@ -80,20 +80,22 @@ const deleteGoals = asyncHandler(async(req,res)=>{
     const goals =await Goal.findById(req.params.id)
 
 
-    if(!goal){
-        res.status(400)
-        throw new Error('goal not found')
+    if(!req.user){
+        res.status(401)
+        throw new Error('user not found ')
     }
-    await goal.remove()
-
-    res.status(200).json({id: req.params.id})
+    if (goal.user.toString() !== req.user.id){
+        res.status(401)
+        throw new Error('user not Authorised ')
+    }
+   await goal.remove()
+    res.status(200).json ({ id: req.params.id })
 })
-
 
 module.exports = { 
 getGoals,
 setGoals,
 updateGoals,
-deleteGoals
+deleteGoals,
 }
 //npm i express-async-handler installed for handling errors

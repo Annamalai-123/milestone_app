@@ -81,14 +81,9 @@ if(user && (await bcrypt.compare(password,user.password))){
 //ROUTES GET/API/users/me
 //ACCESS Private
 
-const getMe = asyncHandler(async(req,res) => {
-    const {_id,name,email} = await User.findById(req.user.id) //
-
- res.status(200).json({
-    id:_id,
-    name,
-    email,
- })
+const getMe = asyncHandler(async(req,res) => { //get me updated
+    
+ res.status(200).json(req.user)
 })
   
  
