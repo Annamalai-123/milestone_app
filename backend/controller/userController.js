@@ -63,15 +63,15 @@ const user = await User.findOne({email})
 
 
 if(user && (await bcrypt.compare(password,user.password))){
-    const token = generateJWT(user.id)
-    return res.status(200).json({
+    res.json({
         _id:user.id,
         name:user.name,
         email:user.email,
-        token,
+        token:generateToken(user._id),
     })
 } else {
-   return res.status(401).json({message: 'Invalid credentials'});
+    res.status(400)
+    throw new Error('invalid credentials')
 }
 
     // res.json ({ message : 'Login User'})
@@ -86,13 +86,13 @@ const getMe = asyncHandler(async(req,res) => { //get me updated
  res.status(200).json(req.user)
 })
   
- // final commented 
+ 
 //Generate JWT token
-// const generateToken = (id) =>{
-//     return jwt.sign({id}, process.env.JWT_SECRET,{
-//         expiresIn:'30d'
-//     })
-// }
+const generateToken = (id) =>{
+    return jwt.sign({id}, process.env.JWT_SECRET,{
+        expiresIn:'30d'
+    })
+}
 
 
 module.exports = {
