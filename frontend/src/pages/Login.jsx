@@ -30,10 +30,10 @@ function Login() {
       navigate("/");
     }
 
-    // Reset state to prevent error persistence on reload
-    return () => {
+    // Dispatch reset only if there was a change in state
+    if (isError || isSuccess || user) {
       dispatch(reset());
-    };
+    }
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const onChange = (e) => {
